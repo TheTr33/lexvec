@@ -2,6 +2,8 @@
 
 This is an implementation of the **LexVec word embedding model** (similar to word2vec and GloVe) that achieves state of the art results in multiple NLP tasks, as described in [these papers](#refs).
 
+**Note:** code and pre-trained vectors for the paper [Why So Down? The Role of Negative (and Positive) Pointwise Mutual Information in Distributional Semantics](https://arxiv.org/abs/1908.06941) will be shared before 31/08/2019.
+
 ## Pre-trained Vectors
 
 ### Subword LexVec
