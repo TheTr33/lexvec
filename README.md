@@ -2,16 +2,28 @@
 
 This is an implementation of the **LexVec word embedding model** (similar to word2vec and GloVe) that achieves state of the art results in multiple NLP tasks, as described in [these papers](#refs).
 
-**Note:** code and pre-trained vectors for the paper [Why So Down? The Role of Negative (and Positive) Pointwise Mutual Information in Distributional Semantics](https://arxiv.org/abs/1908.06941) will be shared before 31/08/2019.
-
 ## Pre-trained Vectors
 
-### Subword LexVec
+### Negative/Positive PMI Vectors [(paper)](https://arxiv.org/pdf/1908.06941)
+
+* Wikipedia 2015 - 3.8B tokens, uncased - 303,517 words - 300 dimensions (all ~330MB). The inline flags below can be added to any LexVec model (in-memory, external memory, and subword variants) to train using different association measures and processing only negative/positive cells. 
+
+  - [+PPMI](https://www.dropbox.com/s/hqaefrvvqkqpyo4/lexvec.enwiki.strictly_positive_pmi.300d.W.pos.vectors.gz?dl=1):  add flags `-process gt`
+  - [-CPMI(-2)](https://www.dropbox.com/s/quyhm2puxpo0766/lexvec.enwiki.negative_cpmi-2.300d.W.pos.vectors.gz?dl=1): add flags `-clip -2 -process leq`
+  - [-NNEGPMI](https://www.dropbox.com/s/65ehk197rki3363/lexvec.enwiki.negative_npmi.300d.W.pos.vectors.gz?dl=1): add flags `-matrix nnegpmi -process leq`
+  - [PPMI](https://www.dropbox.com/s/u10iq1un693zrko/lexvec.enwiki.ppmi.300d.W.pos.vectors.gz?dl=1): default flags
+  - [CPMI(-2)](https://www.dropbox.com/s/eofrczp5nmedryg/lexvec.enwiki.cpmi-2.300d.W.pos.vectors.gz?dl=1): add flags `-clip -2`
+  - [NPMI](https://www.dropbox.com/s/d74pnn68s2vnnnq/lexvec.enwiki.npmi.300d.W.pos.vectors.gz?dl=1): add flags `-matrix npmi`
+  - [NNEGPMI](https://www.dropbox.com/s/scj21qdg8u7py3b/lexvec.enwiki.nnegpmi.300d.W.pos.vectors.gz?dl=1): add flags `-matrix nnegpmi`
+  - [Random](https://www.dropbox.com/s/j64kktu3baische/lexvec.enwiki.random.300d.W.pos.vectors.gz?dl=1): add flags `-iterations 0`
+  
+
+### Subword LexVec [(paper)](http://www.aclweb.org/anthology/W18-1209)
 * [Common Crawl](http://web-language-models.s3-website-us-east-1.amazonaws.com/wmt16/deduped/en-new.xz) - 58B tokens, cased - 2,000,000 words - 300 dimensions
   - [Word Vectors (2.1GB)](https://www.dropbox.com/s/mrxn933chn5u37z/lexvec.commoncrawl.ngramsubwords.300d.W.pos.vectors.gz?dl=1)
   - [Binary model (8.6GB)](https://www.dropbox.com/s/buix0deqlks4312/lexvec.commoncrawl.ngramsubwords.300d.W.pos.bin.gz?dl=1) - use this to [compute vectors for out-of-vocabulary (OOV) words](#oov)
 
-### LexVec
+### LexVec ([paper 1](http://anthology.aclweb.org/P16-2068), [paper 2](https://arxiv.org/pdf/1606.01283))
 
 * [Common Crawl](http://web-language-models.s3-website-us-east-1.amazonaws.com/wmt16/deduped/en-new.xz) - 58B tokens, lowercased - 2,000,000 words - 300 dimensions
   - [Word Vectors (2.2GB)](https://www.dropbox.com/s/flh1fjynqvdsj4p/lexvec.commoncrawl.300d.W.pos.vectors.gz?dl=1)
@@ -20,6 +32,7 @@ This is an implementation of the **LexVec word embedding model** (similar to wor
 * English Wikipedia 2015 + [NewsCrawl](http://www.statmt.org/wmt14/translation-task.html) - 7B tokens - 368,999 words - 300 dimensions
   - [Word Vectors (398MB)](https://www.dropbox.com/s/kguufyc2xcdi8yk/lexvec.enwiki%2Bnewscrawl.300d.W.pos.vectors.gz?dl=1)
   - [Word + Context Vectors (426MB)](https://www.dropbox.com/s/u320t9bw6tzlwma/lexvec.enwiki%2Bnewscrawl.300d.W%2BC.pos.vectors.gz?dl=1)
+
 
 ## Evaluation: Subword LexVec
 
@@ -171,9 +184,11 @@ Use the binary model to compute vector for OOV words:
 
 ## <a name="refs"></a> References
 
+Alexandre Salle and Aline Villavicencio. "Why So Down? The Role of Negative (and Positive) Pointwise Mutual Information in Distributional Semantics." arXiv preprint arXiv:1908.06941 (2019). [(pdf)](https://arxiv.org/pdf/1908.06941)
+
 Alexandre Salle and Aline Villavicencio. "Incorporating Subword Information into Matrix Factorization Word Embeddings." Second Workshop on Subword and Character LEvel Models in NLP (2018). [(pdf)](http://www.aclweb.org/anthology/W18-1209)
 
-Alexandre Salle, Marco Idiart, and Aline Villavicencio. "Enhancing the LexVec Distributed Word Representation Model Using Positional Contexts and External Memory." arXiv preprint arXiv:1606.01283 (2016). [(pdf)](https://arxiv.org/pdf/1606.01283v1)
+Alexandre Salle, Marco Idiart, and Aline Villavicencio. "Enhancing the LexVec Distributed Word Representation Model Using Positional Contexts and External Memory." arXiv preprint arXiv:1606.01283 (2016). [(pdf)](https://arxiv.org/pdf/1606.01283)
 
 Alexandre Salle, Marco Idiart, and Aline Villavicencio. "Matrix Factorization using Window Sampling and Negative Sampling for Improved Word Representations." ACL (2016). [(pdf)](http://anthology.aclweb.org/P16-2068)
 
